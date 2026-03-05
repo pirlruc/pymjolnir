@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Ruff (lint)
+        run: ruff check src/ tests/
+
+      - name: Ruff (format check)
+        run: ruff format --check src/ tests/
+
+      - name: Pylint
+        run: pylint src/pymjolnir/
+
+      - name: Flake8
+        run: flake8 src/pymjolnir/ --max-line-length 100
+
+      - name: Mypy
+        run: mypy src/pymjolnir/
+
+      - name: Radon - Cyclomatic Complexity
+        run: radon cc src/pymjolnir/ -a -nb
+
+      - name: Radon - Maintainability Index
+        run: radon mi src/pymjolnir/ -nb
+
+      - name: Docstring coverage
+        run: docstr-coverage src/pymjolnir/ --fail-under 80
+
+      - name: Pydoclint
+        run: pydoclint --style=google src/pymjolnir/
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Run pytest with coverage
+        run: pytest
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+
+      - name: Bandit
+        run: bandit -r src/pymjolnir/ -c pyproject.toml
+
+      - name: pip-audit
+        run: pip-audit
