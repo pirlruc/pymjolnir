@@ -1,0 +1,24 @@
+name: SBOM Generation
+
+on:
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: "0 4 * * 1"  # Weekly on Monday at 04:00 UTC
+
+jobs:
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          artifact-name: sbom.spdx.json
+          output-file: sbom.spdx.json
+          format: spdx-json
