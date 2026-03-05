@@ -1,0 +1,21 @@
+{
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.codeActionsOnSave": {
+        "source.organizeImports.ruff": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.fixAll": [
+        "source.unusedImports"
+    ],
+    "python.terminal.activateEnvironment": true,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "ruff.configuration": "ruff.toml"
+}
