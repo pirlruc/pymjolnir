@@ -1,21 +1,24 @@
 {
     "[json]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[python]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
     "[toml]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
     "editor.codeActionsOnSave": {
         "source.organizeImports.ruff": "explicit",
         "source.fixAll.ruff": "explicit"
     },
-    "editor.formatOnSave": true,
     "python.analysis.autoImportCompletions": true,
     "python.terminal.activateEnvironment": true,
     "python.testing.pytestArgs": [
