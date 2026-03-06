@@ -1,5 +1,5 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
     "name": "pymjolnir",
     "image": "mcr.microsoft.com/devcontainers/python:3.14",
