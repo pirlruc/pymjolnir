@@ -57,11 +57,10 @@ repos:
       - id: format-docstring
         name: Format docstrings in .py files
         args: [--line-length=100]
-# Not working with python 3.14
-#   - repo: https://github.com/hukkin/docformatter
-#     rev: v1.4.2
-#     hooks:
-#     - id: docformatter
+  - repo: https://github.com/hukkin/docformatter
+    rev: v1.4.2
+    hooks:
+      - id: docformatter
   - repo: https://github.com/jsh9/blank-line-after-blocks
     rev: 0.1.4
     hooks:
