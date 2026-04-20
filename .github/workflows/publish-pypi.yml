@@ -8,6 +8,8 @@
 # Alternative: repository secret PYPI_API_TOKEN and pass `password: ${{ secrets.PYPI_API_TOKEN }}`
 #   to pypa/gh-action-pypi-publish (disable OIDC by omitting id-token permission if required).
 name: Publish to PyPI
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
   workflow_dispatch:
     inputs:
@@ -23,16 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout tag
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.tag }}
           fetch-depth: 0
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
       - name: Set up uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8
+      - name: Sync dev toolchain (lockfile)
+        run: uv sync --frozen --extra dev
       - name: Build distributions
         run: uv build
       - name: Publish to PyPI (Trusted Publishing)

@@ -21,6 +21,48 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-20 (local) — Python interpreter in workspace settings
+
+**Trigger:** Configure the virtualenv interpreter in **`.vscode/settings.json`** instead of
+**`.devcontainer/devcontainer.json`**.
+
+**Actions:** Removed **`customizations.vscode.settings`** from
+**`.devcontainer/devcontainer.json`**. Set **`python.defaultInterpreterPath`** to
+**`${workspaceFolder}/.venv/bin/python`** in **`.vscode/settings.json`** (next to existing Python /
+terminal settings).
+
+**Outcome:** Dev container and local VS Code both pick up the same workspace setting for
+**`uv sync`**’s **`.venv`**.
+
+### 2026-04-20 (local) — Lockfile-based uv sync, PEP 621 license, mypy pin
+
+**Trigger:** Copilot-style review: use **`uv.lock`** in CI/release/devcontainer/PyPI prep;
+**`license`** as PEP 621 table; align **pre-commit mypy** with lockfile **mypy** version.
+
+**Actions:** **CI** / **release** / **publish-pypi**: replace **`uv pip install -e ".[dev]"`** with
+**`uv sync --frozen --extra dev`**. **devcontainer**: **`uv sync --frozen --extra dev`** and
+**`uv run pre-commit install`**. **`pyproject.toml`**: **`license = { text = "MIT" }`**;
+**`mypy>=1.20.1`** in **`dev`**. **`.pre-commit-config.yaml`**: **`mirrors-mypy`**
+**`rev: v1.20.1`** (matches **`uv.lock`**); ran **`uv lock`** if metadata changed. (Interpreter path
+later moved to **`.vscode/settings.json`** — see newer handover entry.)
+
+**Outcome:** Reproducible installs from **`uv.lock`**; mypy versions aligned between pre-commit and
+**`uv run mypy`**.
+
+### 2026-04-20 (local) — GitHub Actions Node 20 deprecation warnings
+
+**Trigger:** CI warned that Node.js 20–based actions are deprecated (`checkout`, `setup-python`,
+`setup-uv`, `gitleaks-action`).
+
+**Actions:** Bumped **`actions/checkout@v6`**, **`actions/setup-python@v6`**,
+**`astral-sh/setup-uv@v8`**, **`softprops/action-gh-release@v3`**; pinned
+**`gitleaks/gitleaks-action@v2.3.9`**; set workflow-level
+**`FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true`** on **CI**, **Release**, and **Publish to PyPI** so
+actions still declaring Node 20 (e.g. Gitleaks) run on Node 24 per GitHub guidance.
+
+**Outcome:** Aligns with the Node 24 migration; revisit **`gitleaks-action`** when a release ships
+**`runs.using: node24`**, then the force flag can be dropped if you want.
+
 ### 2026-04-20 (local) — pre-commit name-tests-test vs pytest file names
 
 **Trigger:** `name-tests-test` failed: `tests/test_pymjolnir.py` did not match `.*_test\.py`.

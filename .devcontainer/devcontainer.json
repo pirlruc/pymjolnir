@@ -14,7 +14,7 @@
     // "forwardPorts": [49152],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": {
-        "bootstrap": "pip install uv && uv pip install --system -e \".[dev]\" && pre-commit install"
+        "bootstrap": "pip install uv && uv sync --frozen --extra dev && uv run pre-commit install"
     },
     // Configure tool-specific properties.
     "customizations": {
