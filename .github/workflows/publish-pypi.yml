@@ -1,0 +1,41 @@
+---
+# Manual PyPI upload: Actions → Publish to PyPI → Run workflow (enter an existing tag, e.g. v0.1.0).
+#
+# Recommended: PyPI "Trusted Publishing" (OIDC) — no long-lived PYPI_API_TOKEN in GitHub.
+#   Configure at https://pypi.org/manage/project/pymjolnir/settings/publishing/ (or TestPyPI first)
+#   with this repo + workflow file name, environment optional.
+#
+# Alternative: repository secret PYPI_API_TOKEN and pass `password: ${{ secrets.PYPI_API_TOKEN }}`
+#   to pypa/gh-action-pypi-publish (disable OIDC by omitting id-token permission if required).
+name: Publish to PyPI
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing Git tag to publish (e.g. v0.1.0)
+        required: true
+        type: string
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+      - name: Build distributions
+        run: uv build
+      - name: Publish to PyPI (Trusted Publishing)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          attestations: true

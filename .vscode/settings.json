@@ -16,8 +16,8 @@
         "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
     "editor.codeActionsOnSave": {
-        "source.organizeImports.ruff": "explicit",
-        "source.fixAll.ruff": "explicit"
+        "source.organizeImports.ruff": "always",
+        "source.fixAll.ruff": "always"
     },
     "python.analysis.autoImportCompletions": true,
     "python.terminal.activateEnvironment": true,

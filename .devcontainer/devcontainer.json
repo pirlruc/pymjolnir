@@ -14,8 +14,7 @@
     // "forwardPorts": [49152],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": {
-        "pre-commit": "pip install pre-commit && pre-commit install",
-        "dev-tools": "pip install coverage && pip install pytest && pip install ruff && pip install flake8 && pip install pylint"
+        "bootstrap": "pip install uv && uv pip install --system -e \".[dev]\" && pre-commit install"
     },
     // Configure tool-specific properties.
     "customizations": {
@@ -23,7 +22,6 @@
             "extensions": [
                 "ms-python.python",
                 "ms-python.vscode-pylance",
-                "ms-python.autopep8",
                 "ms-python.mypy-type-checker",
                 "charliermarsh.ruff",
                 "tamasfe.even-better-toml",
