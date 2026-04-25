@@ -21,6 +21,18 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-25 (local) — Clarify Dependabot metadata workflow skip behavior
+
+**Trigger:** Dependabot metadata workflow appeared skipped on a maintainer-authored pull request;
+make Dependabot-only behavior explicit.
+
+**Actions:** Renamed workflow to **`Dependabot Metadata (Dependabot PRs only)`**, added job name
+**`Summarize Dependabot dependency update`**, and added a workflow comment explaining that
+maintainer-authored PRs intentionally skip because of **`github.actor == 'dependabot[bot]'`**.
+
+**Outcome:** GitHub Actions UI should make it clearer that skipped metadata runs are expected for
+non-Dependabot PRs.
+
 ### 2026-04-25 (local) — Align Ruff pre-commit hook with uv.lock
 
 **Trigger:** Copilot review noted Ruff version drift: **`uv.lock`** resolved **`ruff==0.15.11`** but

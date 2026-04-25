@@ -1,5 +1,5 @@
 ---
-name: Dependabot Metadata
+name: Dependabot Metadata (Dependabot PRs only)
 on:
   pull_request:
     branches: [main]
@@ -8,6 +8,8 @@ permissions:
   pull-requests: read
 jobs:
   metadata:
+    name: Summarize Dependabot dependency update
+    # This workflow intentionally skips maintainer-authored PRs.
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
