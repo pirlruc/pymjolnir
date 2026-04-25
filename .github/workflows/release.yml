@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Set up uv
-        uses: astral-sh/setup-uv@v8
+        uses: astral-sh/setup-uv@v8.1.0
       - name: Sync project and dev dependencies (lockfile)
         run: uv sync --frozen --extra dev
       - name: Build distributions
