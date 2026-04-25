@@ -6,8 +6,8 @@ Design patterns Python library
 
 Releases are driven from your machine, not by automated bump jobs on GitHub.
 
-1. On a branch that is ready to release (usually `main` after merging), install dev tools:
-   `pip install -e ".[dev]"` (or your usual `uv` equivalent).
+1. On a branch that is ready to release (usually `main` after merging), install dev tools from the
+   lockfile: `uv sync --frozen --extra dev`.
 2. Run **`cz bump`**. [Commitizen](https://github.com/commitizen-tools/commitizen) updates
    `pyproject.toml` / `CHANGELOG.md` and creates a **semver tag** (e.g. `v0.2.0`) per
    `[tool.commitizen]` in `pyproject.toml`.

@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=77", "wheel>=0.45"]
 
 [project]
 name = "pymjolnir"
@@ -8,8 +8,17 @@ version = "0.1.0"
 dependencies = []
 requires-python = ">=3.13"
 authors = [{name = "Nuno Monteiro"}]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
 description = "Design patterns Python library"
-license = {text = "MIT"}
+keywords = ["design-patterns", "patterns", "python"]
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
 
 [project.optional-dependencies]
@@ -24,6 +33,11 @@ dev = [
   "pytest>=8.0",
   "ruff>=0.15",
 ]
+
+[project.urls]
+Changelog = "https://github.com/pirlruc/pymjolnir/blob/main/CHANGELOG.md"
+Issues = "https://github.com/pirlruc/pymjolnir/issues"
+Repository = "https://github.com/pirlruc/pymjolnir"
 
 [tool.bandit]
 exclude_dirs = [".venv", "build", "dist", "tests"]
@@ -58,6 +72,19 @@ module = "tests.*"
 init_typed = true
 warn_required_dynamic_aliases = true
 warn_untyped_fields = true
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.main]
+ignore = [".venv", "build", "dist"]
+py-version = "3.13"
+source-roots = ["src"]
+
+[tool.pylint.messages_control]
+disable = [
+  "too-few-public-methods",
+]
 
 [tool.ruff]
 line-length = 100

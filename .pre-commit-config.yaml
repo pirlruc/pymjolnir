@@ -9,7 +9,6 @@ repos:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
-      - id: check-docstring-first
       - id: check-json
         exclude: ^(.devcontainer/devcontainer.json|.vscode/launch.json)$
       - id: double-quote-string-fixer

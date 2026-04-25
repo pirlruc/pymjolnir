@@ -21,6 +21,48 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-25 (local) — Resolve improvements tracker items
+
+**Trigger:** Resolve items from **`improvements.md`**, keep Pylint, and add implementation status
+tracking by priority.
+
+**Actions:** Updated **`improvements.md`** with a top-level tracking section split into high,
+medium, and low priority. Resolved local items: modern SPDX license metadata, **`license-files`**,
+raised build backend minimums, README locked **uv** setup command, removed deprecated
+**`check-docstring-first`**, kept and wired **Pylint** into **`pyproject.toml`** and CI, added
+PyPI-facing metadata, enabled Pylance basic type checking, and added **`docs/README.md`**.
+
+**Outcome:** Local improvements are implemented; externally dependent items remain tracked (first
+Dependabot `uv` PR verification, Node 24 force flag removal when upstream catches up, PyPI Trusted
+Publishing setup).
+
+### 2026-04-25 (local) — Final repository pass and improvements list
+
+**Trigger:** Review all unignored repository files for correctness / completeness and create
+**`improvements.md`** with prioritized findings.
+
+**Actions:** Ran a full local validation pass: **`uv lock --check`**,
+**`uv sync --frozen --extra dev`**, **`uv run pre-commit run --all-files`**, **ruff**, **mypy**,
+**pytest**, **bandit**, **`uv audit --preview-features audit`**, and **`uv build`**. Added
+**`improvements.md`** with high, medium, and low priority items.
+
+**Outcome:** Checks pass and audit is clean. Noted one high-priority release-readiness issue: modern
+**setuptools** warns that **`project.license`** as a table is deprecated; see **`improvements.md`**.
+
+### 2026-04-25 (local) — Dependabot updates for uv, Actions, and pre-commit
+
+**Trigger:** Add Dependabot configuration and workflow to check versions in **`pyproject.toml`** /
+**`uv.lock`**, GitHub Actions YAML files, and **`.pre-commit-config.yaml`** hooks.
+
+**Actions:** Added **`.github/dependabot.yml`** with weekly **`uv`**, **`github-actions`**, and
+**`pre-commit`** update checks, grouped by ecosystem. Added
+**`.github/workflows/dependabot-metadata.yml`** using **`dependabot/fetch-metadata@v3.1.0`** to
+summarize Dependabot PR metadata without auto-merging or approving.
+
+**Outcome:** Dependabot can open version update PRs for project dependencies / lockfile, workflow
+actions, and pre-commit hook revisions; Dependabot PRs get a concise metadata summary in the job
+summary.
+
 ### 2026-04-20 (local) — Python interpreter in workspace settings
 
 **Trigger:** Configure the virtualenv interpreter in **`.vscode/settings.json`** instead of
