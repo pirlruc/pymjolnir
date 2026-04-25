@@ -21,6 +21,29 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-25 (local) — Align Ruff pre-commit hook with uv.lock
+
+**Trigger:** Copilot review noted Ruff version drift: **`uv.lock`** resolved **`ruff==0.15.11`** but
+**`ruff-pre-commit`** was pinned at **`v0.15.5`**.
+
+**Actions:** Verified **`astral-sh/ruff-pre-commit`** tag **`v0.15.11`** exists and updated
+**`.pre-commit-config.yaml`** to use it.
+
+**Outcome:** Pre-commit Ruff and CI/local **`uv run ruff`** now use matching Ruff versions.
+
+### 2026-04-25 (local) — Qodo review fixes for PyPI tag safety and typed package data
+
+**Trigger:** Qodo review noted that **`publish-pypi.yml`** could checkout arbitrary refs via manual
+**`tag`** input, and **`py.typed`** inclusion was not explicit in setuptools config.
+
+**Actions:** Updated **`.github/workflows/publish-pypi.yml`** to checkout
+**`refs/tags/${{ inputs.tag }}`** and validate the tag matches **`vX.Y.Z`** before publishing. Added
+**`[tool.setuptools.package-data] pymjolnir = ["py.typed"]`** to **`pyproject.toml`**.
+
+**Outcome:** Manual PyPI publish is constrained to release tags, and typed-package marker inclusion
+is explicit. Verified **pre-commit**, **uv build**, and wheel contents include
+**`pymjolnir/py.typed`**.
+
 ### 2026-04-25 (local) — Resolve improvements tracker items
 
 **Trigger:** Resolve items from **`improvements.md`**, keep Pylint, and add implementation status

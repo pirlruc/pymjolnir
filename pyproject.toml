@@ -116,5 +116,8 @@ ignore-one-line-docstrings = false
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
+[tool.setuptools.package-data]
+pymjolnir = ["py.typed"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
