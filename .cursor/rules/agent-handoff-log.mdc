@@ -1,0 +1,15 @@
+---
+description: After repo changes, append a dated entry to agent-handover.md for continuity.
+alwaysApply: true
+---
+
+# Agent handover log maintenance
+
+Whenever you complete a **user-requested** change to this repository or a substantive **action** that alters repo files, tooling, or layout (including config, dependencies, tests, CI, packaging), update `agent-handover.md`:
+
+1. Add a new **Log entries** block at the top of that section (keep **newest first**).
+2. Include **date**, **trigger** (what was asked), **actions** (paths touched, key commands), **outcome**, and **follow-ups** if any remain.
+
+Skip logging if the conversation was purely explanatory and nothing in the repo changed—unless the user explicitly asks to record it.
+
+If `agent-handover.md` is missing, recreate it using the same section headers as the current file (`Purpose`, `How to update`, `Log entries`).

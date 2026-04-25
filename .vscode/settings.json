@@ -16,10 +16,12 @@
         "editor.defaultFormatter": "tamasfe.even-better-toml"
     },
     "editor.codeActionsOnSave": {
-        "source.organizeImports.ruff": "explicit",
-        "source.fixAll.ruff": "explicit"
+        "source.organizeImports.ruff": "always",
+        "source.fixAll.ruff": "always"
     },
     "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "python.terminal.activateEnvironment": true,
     "python.testing.pytestArgs": [
         "tests"

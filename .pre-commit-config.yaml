@@ -9,7 +9,6 @@ repos:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
-      - id: check-docstring-first
       - id: check-json
         exclude: ^(.devcontainer/devcontainer.json|.vscode/launch.json)$
       - id: double-quote-string-fixer
@@ -19,6 +18,8 @@ repos:
       - id: check-added-large-files
       - id: debug-statements
       - id: name-tests-test
+        # Default --pytest expects *suffix*_test.py; pytest discovery is usually test_*.py.
+        args: [--pytest-test-first]
       - id: requirements-txt-fixer
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v4.0.0
@@ -45,22 +46,16 @@ repos:
       - id: mdformat
         args: [--wrap=100, --number]
         additional_dependencies: [mdformat-gfm]
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.45.1
+    hooks:
+      - id: typos
   - repo: https://github.com/jsh9/format-json
     rev: 0.1.2
     hooks:
       - id: format-json
         args: [--autofix, --no-ensure-ascii, --indent=4, --no-sort-keys]
         exclude: ^(.devcontainer/devcontainer.json|.vscode/launch.json)$
-  - repo: https://github.com/jsh9/format-docstring
-    rev: 0.2.7
-    hooks:
-      - id: format-docstring
-        name: Format docstrings in .py files
-        args: [--line-length=100]
-  - repo: https://github.com/hukkin/docformatter
-    rev: v1.4.2
-    hooks:
-      - id: docformatter
   - repo: https://github.com/jsh9/blank-line-after-blocks
     rev: 0.1.4
     hooks:
@@ -75,37 +70,25 @@ repos:
     rev: v3.21.2
     hooks:
       - id: pyupgrade
-        args: [--py310-plus]
+        args: [--py313-plus]
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.19.1
     hooks:
       - id: gitlint
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
-        additional_dependencies:
-          - flake8-bugbear
-          - flake8-builtins
-          - flake8-comprehensions
-          - flake8-simplify
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.5
+    rev: v0.15.11
     hooks:
       - id: ruff-check
         args: [--fix]
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
+    rev: v1.20.1
     hooks:
       - id: mypy
         additional_dependencies: [pydantic>=2.0]
-        args: [--ignore-missing-imports]
-  - repo: https://github.com/jsh9/pydoclint
-    rev: 0.8.3
-    hooks:
-      - id: pydoclint
-        args: [--style=google, --check-return-types=True]
+        args: [--config-file=pyproject.toml, -p, pymjolnir, -p, tests]
+        pass_filenames: false
+        always_run: true
   - repo: https://github.com/HunterMcGushion/docstr_coverage
     rev: v2.3.2
     hooks:
@@ -120,7 +103,8 @@ repos:
     rev: v1.154.0
     hooks:
       - id: semgrep-ci
-        args: [--config, auto]
+        # Pinned ruleset (reproducible, lighter than `auto`). Swap for `auto` or a custom `semgrep.yml` if you prefer.
+        args: [--config, p/python, --quiet]
         stages: [pre-push]
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0

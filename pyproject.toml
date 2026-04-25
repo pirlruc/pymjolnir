@@ -1,0 +1,123 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=77", "wheel>=0.45"]
+
+[project]
+name = "pymjolnir"
+version = "0.1.0"
+dependencies = []
+requires-python = ">=3.13"
+authors = [{name = "Nuno Monteiro"}]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+description = "Design patterns Python library"
+keywords = ["design-patterns", "patterns", "python"]
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = [
+  "bandit[toml]>=1.7",
+  "commitizen>=3.0",
+  "coverage[toml]>=7.0",
+  "mypy>=1.20.1",
+  "pre-commit>=4.0",
+  "pydantic>=2.0",
+  "pylint>=3.0",
+  "pytest>=8.0",
+  "ruff>=0.15",
+]
+
+[project.urls]
+Changelog = "https://github.com/pirlruc/pymjolnir/blob/main/CHANGELOG.md"
+Issues = "https://github.com/pirlruc/pymjolnir/issues"
+Repository = "https://github.com/pirlruc/pymjolnir"
+
+[tool.bandit]
+exclude_dirs = [".venv", "build", "dist", "tests"]
+
+# Release flow: local `cz bump` → push tag → GitHub "Release" workflow → optional manual PyPI.
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+update_changelog_on_bump = true
+version_provider = "pep621"
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+explicit_package_bases = true
+mypy_path = ["src"]
+namespace_packages = true
+no_implicit_optional = true
+plugins = ["pydantic.mypy"]
+python_version = "3.13"
+show_error_codes = true
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+disallow_untyped_defs = false
+module = "tests.*"
+
+[tool.pydantic-mypy]
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint.main]
+ignore = [".venv", "build", "dist"]
+py-version = "3.13"
+source-roots = ["src"]
+
+[tool.pylint.messages_control]
+disable = [
+  "too-few-public-methods",
+]
+
+[tool.ruff]
+line-length = 100
+preview = true
+target-version = "py313"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+  "B",
+  "C4",
+  "D",
+  "DOC",
+  "E",
+  "F",
+  "I",
+  "SIM",
+  "UP",
+  "W",
+]
+
+[tool.ruff.lint.pydoclint]
+# Mirrors former pydoclint CLI intent: validate docstrings against signatures.
+# Return/yield/exception coverage is enforced by DOC2xx / DOC4xx / DOC5xx rules.
+ignore-one-line-docstrings = false
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.setuptools.package-data]
+pymjolnir = ["py.typed"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

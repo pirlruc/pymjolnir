@@ -16,3 +16,12 @@ indent_size = 4
 
 [*.{yml,yaml}]
 indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[*.json]
+indent_size = 4
+
+[*.jsonc]
+indent_size = 4
