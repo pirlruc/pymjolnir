@@ -21,6 +21,19 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-26 (local) — Align build backend policy and clarify handoff wording
+
+**Trigger:** Address review feedback about inconsistent build backend pinning policy and ambiguous
+handoff rule wording.
+
+**Actions:** Updated `pyproject.toml` `[build-system].requires` from exact pins to lower bounds:
+`setuptools>=82.0.1` and `wheel>=0.47.0`. Updated `.cursor/rules/agent-handoff-log.mdc` wording to
+"Add a new log entry at the top of the existing **Log entries** section". Updated
+`docs/improvements.md` backend-minimum examples/text to match the new lower-bound policy values.
+
+**Outcome:** Repository policy is now consistent across configuration and docs: build backend uses
+lower bounds (not exact pins), and the handoff rule no longer suggests creating duplicate sections.
+
 ### 2026-04-26 (local) — Split commit suggestion into separate Cursor rule
 
 **Trigger:** Split the conventional commit suggestion requirement into its own Cursor rule file.

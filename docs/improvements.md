@@ -14,8 +14,8 @@
   `uv sync --frozen --extra dev`.
 - [x] **Decide whether release builds must lock build backend versions** — kept build backend
   versions as lower-bounded requirements, but raised them to modern metadata-capable minimums
-  (`setuptools>=77`, `wheel>=0.45`). Exact build-backend pinning is intentionally not used for this
-  library template.
+  (`setuptools>=82.0.1`, `wheel>=0.47.0`). Exact build-backend pinning is intentionally not used for
+  this library template.
 - [ ] **Verify Dependabot `uv` behavior on the first PR** — not implemented locally; requires the
   first Dependabot PR after GitHub processes `.github/dependabot.yml`.
 - [ ] **Review Node 24 force flag after action upgrades** — not implemented yet; keep until all
@@ -96,7 +96,7 @@ CI, release, devcontainer, and publish workflows use `uv sync --frozen --extra d
 application/dev environment. `uv build` still uses the `[build-system]` requirements:
 
 ```toml
-requires = ["setuptools>=77", "wheel>=0.45"]
+requires = ["setuptools>=82.0.1", "wheel>=0.47.0"]
 ```
 
 Implemented decision: keep lower bounds rather than exact pins, because this is a library template
