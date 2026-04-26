@@ -21,6 +21,55 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-26 (local) — Split commit suggestion into separate Cursor rule
+
+**Trigger:** Split the conventional commit suggestion requirement into its own Cursor rule file.
+
+**Actions:** Removed commit-suggestion text from `.cursor/rules/agent-handoff-log.mdc`. Added new
+`.cursor/rules/conventional-commit-suggestion.mdc` with the standalone requirement to include a
+one-line conventional commit suggestion (`type(scope): imperative description`) in final replies
+when repository files change.
+
+**Outcome:** Cursor rules now follow single-responsibility scope: handoff logging remains in
+`agent-handoff-log.mdc`; commit suggestion guidance is isolated in a dedicated rule.
+
+### 2026-04-26 (local) — Add conventional commit suggestion to Cursor handoff rule
+
+**Trigger:** Add only the conventional commit suggestion requirement to Cursor rules, without
+importing other handoff-and-commits constraints.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` to require a one-line conventional commit
+suggestion at the end of final replies (`type(scope): imperative description`). Left other external
+rule requirements untouched and not adopted.
+
+**Outcome:** Repository Cursor rule now includes the requested conventional-commit suggestion
+behavior while keeping the handoff log rule otherwise focused.
+
+### 2026-04-26 (local) — Rename and move AI handoff/improvements docs
+
+**Trigger:** Rename `agent-handover.md` to `ai-agent-handoff.md` and move it plus `improvements.md`
+into `docs/`.
+
+**Actions:** Moved `agent-handover.md` to `docs/ai-agent-handoff.md`; moved `improvements.md` to
+`docs/improvements.md`; updated `.cursor/rules/agent-handoff-log.mdc` references to the new handoff
+path.
+
+**Outcome:** Repository documentation now keeps both handoff and improvement tracker files under
+`docs/`, with the handoff file renamed as requested.
+
+### 2026-04-26 (local) — Bump dev tooling and pre-commit hook versions
+
+**Trigger:** Update package constraints and pre-commit hook revisions to specific newer versions.
+
+**Actions:** Updated `pyproject.toml` dev/build constraints: `pre-commit==4.6.0`,
+`coverage[toml]>=7.13.5`, `bandit[toml]==1.9.4`, `ruff==0.15.12`, `setuptools==82.0.1`,
+`wheel==0.47.0`. Updated `.pre-commit-config.yaml`: `toml-sort v0.24.4`, `ruff-pre-commit v0.15.12`,
+`mirrors-mypy v1.20.2`, `mypy` hook `additional_dependencies` to `pydantic==2.13.3`,
+`semgrep v1.159.0`, `gitleaks v8.30.1`. Ran `uv lock` to refresh `uv.lock`.
+
+**Outcome:** Repository dependency constraints and pre-commit hook revisions now match requested
+versions; lockfile reflects the updated resolver state.
+
 ### 2026-04-26 (local) — Exclude Dependabot config from yamlfix
 
 **Trigger:** Keep **`.github/dependabot.yml`** schedule **`time`** values quoted after yaml
