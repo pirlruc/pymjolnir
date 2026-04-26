@@ -21,6 +21,28 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-26 (local) — Align mypy version between pre-commit and uv lock
+
+**Trigger:** Review feedback identified version drift: `mirrors-mypy` hook uses `v1.20.2` while the
+locked dev environment still resolved `mypy==1.20.1`.
+
+**Actions:** Updated `pyproject.toml` dev dependency from `mypy>=1.20.1` to `mypy>=1.20.2` and ran
+`uv lock` to refresh `uv.lock`.
+
+**Outcome:** `uv.lock` now resolves `mypy==1.20.2`, matching `.pre-commit-config.yaml`
+`mirrors-mypy` version so local `uv run mypy` and pre-commit type checks are aligned.
+
+### 2026-04-26 (local) — Clarify handoff rule description wording
+
+**Trigger:** Review feedback noted contradictory wording in the handoff rule description ("append")
+versus newest-first instructions.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` frontmatter description from "append a
+dated entry" to "add a dated entry at the top" so it matches the existing newest-first policy.
+
+**Outcome:** Rule description and rule body now provide consistent guidance for top-inserted handoff
+entries.
+
 ### 2026-04-26 (local) — Align build backend policy and clarify handoff wording
 
 **Trigger:** Address review feedback about inconsistent build backend pinning policy and ambiguous

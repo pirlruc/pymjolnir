@@ -1,5 +1,5 @@
 ---
-description: After repo changes, append a dated entry to docs/ai-agent-handoff.md for continuity.
+description: After repo changes, add a dated entry at the top of docs/ai-agent-handoff.md for continuity.
 alwaysApply: true
 ---
 
