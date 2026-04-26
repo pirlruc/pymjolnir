@@ -21,6 +21,19 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
+
+**Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
+used headings that do not match `docs/ai-agent-handoff.md`.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` recreate instructions to match the actual
+handoff document format (`# Agent handover log (pymjolnir)`, plain-text purpose line,
+`## How to update this file`, and `## Log entries (newest first)`), and to keep newest-first entry
+prepending behavior.
+
+**Outcome:** If the handoff file must be recreated, rule guidance now matches the real document
+layout and avoids missing required sections.
+
 ### 2026-04-26 (local) — Final wording consistency pass for handoff docs/rule
 
 **Trigger:** Review feedback requested correcting recreate instructions in

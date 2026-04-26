@@ -12,7 +12,6 @@ Whenever you complete a **user-requested** change to this repository or a substa
 
 Skip logging if the conversation was purely explanatory and nothing in the repo changed—unless the user explicitly asks to record it.
 
-If `docs/ai-agent-handoff.md` is missing, recreate it with these headings in this order:
-`# AI agent handoff`, `## Purpose`, and `## Log entries`. Under `## Log entries`, prepend the
-newest entry first and include **date**, **trigger**, **actions**, **outcome**, and **follow-ups**
-if any remain.
+If `docs/ai-agent-handoff.md` is missing, recreate it using the same headings and structure as the
+current document format (including the title, the plain-text purpose line, `## How to update this
+file`, and `## Log entries (newest first)`), then continue prepending newest entries at the top.
