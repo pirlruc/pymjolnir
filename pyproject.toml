@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=77", "wheel>=0.45"]
+requires = ["setuptools>=82.0.1", "wheel>=0.47.0"]
 
 [project]
 name = "pymjolnir"
@@ -23,15 +23,15 @@ readme = "README.md"
 
 [project.optional-dependencies]
 dev = [
-  "bandit[toml]>=1.7",
+  "bandit[toml]==1.9.4",
   "commitizen>=3.0",
-  "coverage[toml]>=7.0",
-  "mypy>=1.20.1",
-  "pre-commit>=4.0",
+  "coverage[toml]>=7.13.5",
+  "mypy>=1.20.2",
+  "pre-commit==4.6.0",
   "pydantic>=2.0",
   "pylint>=3.0",
   "pytest>=8.0",
-  "ruff>=0.15",
+  "ruff==0.15.12",
 ]
 
 [project.urls]

@@ -6,8 +6,8 @@ changed, and what should happen next.
 ## How to update this file
 
 After any **user-requested** change or substantive **repository action** (new config, dependency,
-layout, CI, release prep, etc.), append a new entry under **Log entries** (newest first). Each entry
-should include:
+layout, CI, release prep, etc.), add a new entry at the top of **Log entries** (newest first). Each
+entry should include:
 
 1. **Date** (ISO-8601, UTC or local—state which).
 2. **Trigger** (short quote or paraphrase of the request).
@@ -20,6 +20,116 @@ Do not log purely informational chat with no repo impact unless the user asks to
 ______________________________________________________________________
 
 ## Log entries (newest first)
+
+### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
+
+**Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
+used headings that do not match `docs/ai-agent-handoff.md`.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` recreate instructions to match the actual
+handoff document format (`# Agent handover log (pymjolnir)`, plain-text purpose line,
+`## How to update this file`, and `## Log entries (newest first)`), and to keep newest-first entry
+prepending behavior.
+
+**Outcome:** If the handoff file must be recreated, rule guidance now matches the real document
+layout and avoids missing required sections.
+
+### 2026-04-26 (local) — Final wording consistency pass for handoff docs/rule
+
+**Trigger:** Review feedback requested correcting recreate instructions in
+`.cursor/rules/agent-handoff-log.mdc` and a final documentation consistency pass.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` to instruct recreating
+`docs/ai-agent-handoff.md` using the same headings/structure rather than fixed header names. Updated
+`docs/ai-agent-handoff.md` "How to update" wording from "append" to "add at the top" to match
+newest-first behavior.
+
+**Outcome:** Handoff rule and handoff document now use consistent, non-contradictory wording for
+top-inserted log entries and file recreation guidance.
+
+### 2026-04-26 (local) — Align mypy version between pre-commit and uv lock
+
+**Trigger:** Review feedback identified version drift: `mirrors-mypy` hook uses `v1.20.2` while the
+locked dev environment still resolved `mypy==1.20.1`.
+
+**Actions:** Updated `pyproject.toml` dev dependency from `mypy>=1.20.1` to `mypy>=1.20.2` and ran
+`uv lock` to refresh `uv.lock`.
+
+**Outcome:** `uv.lock` now resolves `mypy==1.20.2`, matching `.pre-commit-config.yaml`
+`mirrors-mypy` version so local `uv run mypy` and pre-commit type checks are aligned.
+
+### 2026-04-26 (local) — Clarify handoff rule description wording
+
+**Trigger:** Review feedback noted contradictory wording in the handoff rule description ("append")
+versus newest-first instructions.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` frontmatter description from "append a
+dated entry" to "add a dated entry at the top" so it matches the existing newest-first policy.
+
+**Outcome:** Rule description and rule body now provide consistent guidance for top-inserted handoff
+entries.
+
+### 2026-04-26 (local) — Align build backend policy and clarify handoff wording
+
+**Trigger:** Address review feedback about inconsistent build backend pinning policy and ambiguous
+handoff rule wording.
+
+**Actions:** Updated `pyproject.toml` `[build-system].requires` from exact pins to lower bounds:
+`setuptools>=82.0.1` and `wheel>=0.47.0`. Updated `.cursor/rules/agent-handoff-log.mdc` wording to
+"Add a new log entry at the top of the existing **Log entries** section". Updated
+`docs/improvements.md` backend-minimum examples/text to match the new lower-bound policy values.
+
+**Outcome:** Repository policy is now consistent across configuration and docs: build backend uses
+lower bounds (not exact pins), and the handoff rule no longer suggests creating duplicate sections.
+
+### 2026-04-26 (local) — Split commit suggestion into separate Cursor rule
+
+**Trigger:** Split the conventional commit suggestion requirement into its own Cursor rule file.
+
+**Actions:** Removed commit-suggestion text from `.cursor/rules/agent-handoff-log.mdc`. Added new
+`.cursor/rules/conventional-commit-suggestion.mdc` with the standalone requirement to include a
+one-line conventional commit suggestion (`type(scope): imperative description`) in final replies
+when repository files change.
+
+**Outcome:** Cursor rules now follow single-responsibility scope: handoff logging remains in
+`agent-handoff-log.mdc`; commit suggestion guidance is isolated in a dedicated rule.
+
+### 2026-04-26 (local) — Add conventional commit suggestion to Cursor handoff rule
+
+**Trigger:** Add only the conventional commit suggestion requirement to Cursor rules, without
+importing other handoff-and-commits constraints.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` to require a one-line conventional commit
+suggestion at the end of final replies (`type(scope): imperative description`). Left other external
+rule requirements untouched and not adopted.
+
+**Outcome:** Repository Cursor rule now includes the requested conventional-commit suggestion
+behavior while keeping the handoff log rule otherwise focused.
+
+### 2026-04-26 (local) — Rename and move AI handoff/improvements docs
+
+**Trigger:** Rename `agent-handover.md` to `ai-agent-handoff.md` and move it plus `improvements.md`
+into `docs/`.
+
+**Actions:** Moved `agent-handover.md` to `docs/ai-agent-handoff.md`; moved `improvements.md` to
+`docs/improvements.md`; updated `.cursor/rules/agent-handoff-log.mdc` references to the new handoff
+path.
+
+**Outcome:** Repository documentation now keeps both handoff and improvement tracker files under
+`docs/`, with the handoff file renamed as requested.
+
+### 2026-04-26 (local) — Bump dev tooling and pre-commit hook versions
+
+**Trigger:** Update package constraints and pre-commit hook revisions to specific newer versions.
+
+**Actions:** Updated `pyproject.toml` dev/build constraints: `pre-commit==4.6.0`,
+`coverage[toml]>=7.13.5`, `bandit[toml]==1.9.4`, `ruff==0.15.12`, `setuptools==82.0.1`,
+`wheel==0.47.0`. Updated `.pre-commit-config.yaml`: `toml-sort v0.24.4`, `ruff-pre-commit v0.15.12`,
+`mirrors-mypy v1.20.2`, `mypy` hook `additional_dependencies` to `pydantic==2.13.3`,
+`semgrep v1.159.0`, `gitleaks v8.30.1`. Ran `uv lock` to refresh `uv.lock`.
+
+**Outcome:** Repository dependency constraints and pre-commit hook revisions now match requested
+versions; lockfile reflects the updated resolver state.
 
 ### 2026-04-26 (local) — Exclude Dependabot config from yamlfix
 
