@@ -29,6 +29,8 @@ repos:
     rev: 1.19.1
     hooks:
       - id: yamlfix
+        # Dependabot requires schedule.time to remain quoted strings; yamlfix removes those quotes.
+        exclude: ^\.github/dependabot\.yml$
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.24.3
     hooks:
