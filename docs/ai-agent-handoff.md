@@ -6,8 +6,8 @@ changed, and what should happen next.
 ## How to update this file
 
 After any **user-requested** change or substantive **repository action** (new config, dependency,
-layout, CI, release prep, etc.), append a new entry under **Log entries** (newest first). Each entry
-should include:
+layout, CI, release prep, etc.), add a new entry at the top of **Log entries** (newest first). Each
+entry should include:
 
 1. **Date** (ISO-8601, UTC or local—state which).
 2. **Trigger** (short quote or paraphrase of the request).
@@ -20,6 +20,19 @@ Do not log purely informational chat with no repo impact unless the user asks to
 ______________________________________________________________________
 
 ## Log entries (newest first)
+
+### 2026-04-26 (local) — Final wording consistency pass for handoff docs/rule
+
+**Trigger:** Review feedback requested correcting recreate instructions in
+`.cursor/rules/agent-handoff-log.mdc` and a final documentation consistency pass.
+
+**Actions:** Updated `.cursor/rules/agent-handoff-log.mdc` to instruct recreating
+`docs/ai-agent-handoff.md` using the same headings/structure rather than fixed header names. Updated
+`docs/ai-agent-handoff.md` "How to update" wording from "append" to "add at the top" to match
+newest-first behavior.
+
+**Outcome:** Handoff rule and handoff document now use consistent, non-contradictory wording for
+top-inserted log entries and file recreation guidance.
 
 ### 2026-04-26 (local) — Align mypy version between pre-commit and uv lock
 

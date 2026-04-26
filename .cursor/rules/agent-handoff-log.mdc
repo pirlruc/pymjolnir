@@ -12,4 +12,5 @@ Whenever you complete a **user-requested** change to this repository or a substa
 
 Skip logging if the conversation was purely explanatory and nothing in the repo changed—unless the user explicitly asks to record it.
 
-If `docs/ai-agent-handoff.md` is missing, recreate it using the same section headers as the current file (`Purpose`, `How to update`, `Log entries`).
+If `docs/ai-agent-handoff.md` is missing, recreate it using the same section headings and structure
+as the current file rather than assuming specific header names.
