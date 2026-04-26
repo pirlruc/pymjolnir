@@ -21,6 +21,27 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-04-26 (local) — Exclude Dependabot config from yamlfix
+
+**Trigger:** Keep **`.github/dependabot.yml`** schedule **`time`** values quoted after yaml
+formatting.
+
+**Actions:** Added a **`yamlfix`** hook **`exclude`** for **`.github/dependabot.yml`**, with an
+inline comment explaining Dependabot requires **`schedule.time`** to remain quoted strings and
+**`yamlfix`** removes those quotes.
+
+**Outcome:** Future pre-commit runs should not rewrite Dependabot schedule times into schema-invalid
+YAML integers.
+
+### 2026-04-26 (local) — Fix Dependabot schedule time types
+
+**Trigger:** Dependabot rejected **`.github/dependabot.yml`** because schedule **`time`** values
+were parsed as YAML integers instead of strings.
+
+**Actions:** Quoted all Dependabot schedule times: **`"06:00"`**, **`"06:15"`**, and **`"06:30"`**.
+
+**Outcome:** Dependabot schedule values now conform to the schema’s string type.
+
 ### 2026-04-25 (local) — Clarify Dependabot metadata workflow skip behavior
 
 **Trigger:** Dependabot metadata workflow appeared skipped on a maintainer-authored pull request;
