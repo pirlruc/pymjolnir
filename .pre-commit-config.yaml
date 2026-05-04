@@ -49,7 +49,7 @@ repos:
         args: [--wrap=100, --number]
         additional_dependencies: [mdformat-gfm]
   - repo: https://github.com/crate-ci/typos
-    rev: v1.45.1
+    rev: v1.46.0
     hooks:
       - id: typos
   - repo: https://github.com/jsh9/format-json
