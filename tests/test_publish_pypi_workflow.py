@@ -20,11 +20,11 @@ def test_publish_workflow_passes_tag_input_through_environment() -> None:
 
     assert "TAG: ${{ inputs.tag }}" in step
     assert 'case "${{ inputs.tag }}"' not in step
-    assert 'refs/tags/${{ inputs.tag }}' not in step
+    assert "refs/tags/${{ inputs.tag }}" not in step
 
 
 def test_publish_workflow_rejects_non_semver_tag_names() -> None:
     """Keep tag validation strict enough to reject shell metacharacter payloads."""
     step = _validate_release_tag_step()
 
-    assert "[[ ! \"$TAG\" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]" in step
+    assert '[[ ! "$TAG" =~ ^v[0-9]+[.][0-9]+[.][0-9]+$ ]]' in step
