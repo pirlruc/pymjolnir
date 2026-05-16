@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-
 WORKFLOW = Path(".github/workflows/publish-pypi.yml")
 
 
