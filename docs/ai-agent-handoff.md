@@ -21,6 +21,25 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-05-18 (UTC) — Harden manual PyPI publish tag validation
+
+**Trigger:** Scheduled critical bug inspection for recent commits and high-severity correctness or
+security issues.
+
+**Actions:** Reviewed recent commit history, open workflow-related PRs, and release/publish
+workflows. Updated `.github/workflows/publish-pypi.yml` so the manual `workflow_dispatch` tag input
+is validated before checkout, passed into Bash through the `TAG` environment variable, and matched
+with a strict `^vX.Y.Z$` regex before the publishing job can proceed. Added
+`tests/test_publish_pypi_workflow.py` to guard against direct shell interpolation and validation
+ordering regressions. Ran the workflow regression tests via direct Python invocation and
+`python3 -m compileall src tests`.
+
+**Outcome:** Crafted tag names containing shell substitution syntax can no longer execute during the
+Trusted Publishing workflow's validation step, while normal `vX.Y.Z` tag publishing remains
+supported.
+
+**Follow-ups:** None.
+
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
 **Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
