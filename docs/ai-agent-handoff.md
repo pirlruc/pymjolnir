@@ -35,9 +35,11 @@ ordering regressions.
 
 **Outcome:** Crafted tag names containing shell substitution syntax can no longer execute during the
 Trusted Publishing workflow's validation step, while normal `vX.Y.Z` tag publishing remains
-supported. Validation is queued after the initial implementation commit is pushed.
+supported. Validation passed via direct invocation of the workflow regression assertions and
+`python3 -m compileall src tests`; `python3 -m pytest tests/test_publish_pypi_workflow.py` could not
+run because pytest is not installed in this image.
 
-**Follow-ups:** Run the focused workflow regression tests and update this entry with the result.
+**Follow-ups:** None.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
