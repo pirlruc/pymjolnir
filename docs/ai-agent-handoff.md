@@ -32,9 +32,10 @@ passed into Bash through the `TAG` environment variable, and restricted to a str
 Added `tests/test_publish_pypi_workflow.py` regression coverage for validation ordering and direct
 shell interpolation.
 
-**Outcome:** Pending validation after the implementation commit is pushed.
-
-**Follow-ups:** Run focused workflow regression tests and update this entry with the result.
+**Outcome:** Crafted tag names containing shell substitution syntax can no longer execute during the
+Trusted Publishing workflow's validation step, while normal `vX.Y.Z` tag publishing remains
+supported. Validation passed with `python3 -m compileall src tests` and direct execution of the new
+workflow regression tests.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
