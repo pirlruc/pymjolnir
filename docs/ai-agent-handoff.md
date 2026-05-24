@@ -32,10 +32,12 @@ passed into Bash through the `TAG` environment variable, and restricted to a str
 Added `tests/test_publish_pypi_workflow.py` regression coverage for validation ordering and direct
 shell interpolation.
 
-**Outcome:** Implementation is ready for post-commit validation per branch workflow instructions.
+**Outcome:** Focused regression checks passed under the available local Python 3.12 interpreter:
+directly executed `tests/test_publish_pypi_workflow.py` test functions, `python3 -m compileall src
+tests`, and `git diff HEAD~1..HEAD --check`. Full project `uv`/Python 3.13 validation was not
+available in this environment because `uv` is not installed and only Python 3.12 is present.
 
-**Follow-ups:** Run focused workflow regression tests and update this entry with the validation
-result.
+**Follow-ups:** None.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
