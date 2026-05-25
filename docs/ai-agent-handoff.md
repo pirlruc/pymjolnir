@@ -32,9 +32,13 @@ passed into Bash through the `TAG` environment variable, and restricted to a str
 Added `tests/test_publish_pypi_workflow.py` regression coverage for validation ordering and direct
 shell interpolation.
 
-**Outcome:** Pending validation after the implementation commit is pushed.
+**Outcome:** Manual PyPI publishing now rejects non-`vX.Y.Z` inputs before checkout and no longer
+interpolates untrusted dispatch input directly into the validation shell body. Focused regression
+checks passed via direct Python execution because `uv` and `pytest` are unavailable in the local
+automation environment.
 
-**Follow-ups:** Run focused workflow regression tests and update this entry with the result.
+**Follow-ups:** Re-run `uv run pytest tests/test_publish_pypi_workflow.py -q` in an environment with
+the project toolchain installed.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
