@@ -21,6 +21,27 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-05-30 (UTC) — Harden manual PyPI tag validation
+
+**Trigger:** Daily critical bug-finding automation inspected recent commits for high-severity
+correctness/security issues.
+
+**Actions:** Updated `.github/workflows/publish-pypi.yml` so the manual `workflow_dispatch` tag input
+is copied through `RELEASE_TAG`, strictly validated before checkout, and used in `git rev-parse` with
+`--end-of-options` instead of direct shell interpolation. Added
+`tests/test_publish_pypi_workflow.py` regression coverage. Commands run: `uv --version && uv run
+pytest tests/test_publish_pypi_workflow.py tests/test_pymjolnir.py` (blocked because `uv` is not
+installed locally), `python3 -m pytest tests/test_publish_pypi_workflow.py tests/test_pymjolnir.py`
+(blocked because `pytest` is not installed locally), a stdlib Python harness for the focused tests,
+and `gh run list --branch cursor/critical-bug-investigation-94d8 --limit 5`.
+
+**Outcome:** The manual PyPI publishing workflow now rejects non-`vX.Y.Z` tag names before any
+checkout or shell use, preventing shell metacharacter payloads from executing in the OIDC-enabled
+publish job. Focused stdlib test execution passed, and GitHub Actions CI succeeded for commit
+`25d9bc6`.
+
+**Follow-ups:** None.
+
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
 **Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
