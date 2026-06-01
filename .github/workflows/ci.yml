@@ -49,7 +49,7 @@ jobs:
       - name: Gitleaks
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name
           == github.repository
-        uses: gitleaks/gitleaks-action@v2.3.9
+        uses: gitleaks/gitleaks-action@v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
