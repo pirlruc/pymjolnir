@@ -21,6 +21,24 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-06-04 (UTC) — Harden manual PyPI release tag validation
+
+**Trigger:** Scheduled critical bug-finding automation inspected recent commits for high-severity
+correctness/security issues.
+
+**Actions:** Updated `.github/workflows/publish-pypi.yml` to validate the manual `tag` input before
+the tag-specific checkout, moved shell use of the input through `RELEASE_TAG`, and verified the
+checked-out ref with `git rev-parse --verify --end-of-options`. Added
+`.github/scripts/validate-release-tag.sh` plus `tests/test_release_tag_validation.py` to lock the
+strict `vX.Y.Z` release-tag contract. Ran direct validator checks, `bash -n`, `git diff --check
+HEAD`, `PYTHONPATH=src python3 -m unittest tests.test_release_tag_validation`, `PYTHONPATH=src
+python3 -m unittest discover tests`, and checked branch CI with `gh run list`.
+
+**Outcome:** Confirmed the previous shell glob accepted `v1.2.3-rc1`; the new validator accepts
+`v1.2.3` and rejects suffix/shell-metacharacter inputs. Branch CI passed on run `26948004398`.
+
+**Follow-ups:** None.
+
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
 **Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
