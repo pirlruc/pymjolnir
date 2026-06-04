@@ -7,7 +7,6 @@ import subprocess
 import unittest
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VALIDATOR = REPO_ROOT / ".github" / "scripts" / "validate-release-tag.sh"
 WORKFLOW = REPO_ROOT / ".github" / "workflows" / "publish-pypi.yml"
@@ -17,7 +16,11 @@ class ReleaseTagValidationTests(unittest.TestCase):
     """Validate the manual PyPI workflow tag contract."""
 
     def run_validator(self, tag: str) -> subprocess.CompletedProcess[str]:
-        """Run the release tag validator with a candidate tag."""
+        """Run the release tag validator with a candidate tag.
+
+        Returns:
+            The completed validator process.
+        """
         env = os.environ.copy()
         env["RELEASE_TAG"] = tag
         return subprocess.run(
