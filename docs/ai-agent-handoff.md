@@ -31,7 +31,10 @@ environment variables with a strict anchored release-tag regex before checkout, 
 checkout without shell interpolation. Added `tests/test_workflows.py` to lock in the validation order
 and no-raw-input-in-shell invariant.
 
-**Outcome:** Pending validation and push in this automation run.
+**Outcome:** Validation passed with
+`PYTHONPATH=src /tmp/pymjolnir-test-venv/bin/python -m pytest tests/test_workflows.py tests/test_pymjolnir.py`,
+a direct shell simulation confirming command-substitution tag input is rejected without executing, and
+PyYAML parsing of `.github/workflows/publish-pypi.yml`.
 
 **Follow-ups:** None.
 
