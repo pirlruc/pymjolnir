@@ -31,10 +31,13 @@ environment variable before checkout and to verify the checked-out tag without r
 interpolation in shell. Added `tests/test_workflows.py` regression coverage for validation ordering
 and command-substitution handling.
 
-**Outcome:** Initial fix and tests committed for post-push validation.
+**Outcome:** Validation passed with
+`PYTHONPATH=src /tmp/pymjolnir-test-venv/bin/python -m pytest tests/test_workflows.py tests/test_pymjolnir.py`,
+direct shell simulations confirming malicious tag input is rejected without command execution while
+`v1.2.3` passes, `go run github.com/rhysd/actionlint/cmd/actionlint@latest -shellcheck= -color .github/workflows/publish-pypi.yml`,
+Ruff check/format on tests, and CI-style mypy/pylint checks for `src` and `tests`.
 
-**Follow-ups:** Run the focused workflow tests and shell simulations, then update this entry with
-the validation outcome.
+**Follow-ups:** None.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
