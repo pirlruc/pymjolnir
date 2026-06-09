@@ -21,6 +21,25 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-06-09 (UTC) — Harden manual PyPI publish tag input handling
+
+**Trigger:** Daily critical bug-finding automation found that the manual PyPI workflow interpolated
+the `workflow_dispatch` tag input directly into shell commands with publishing OIDC permission.
+
+**Actions:** Updated `.github/workflows/publish-pypi.yml` to validate `inputs.tag` through a `TAG`
+environment variable before checkout, require an exact `vX.Y.Z` tag pattern, and verify the tag
+without raw expression interpolation in shell. Added `tests/test_workflows.py` regression coverage
+for validation ordering, command-substitution rejection, and valid release tag acceptance. Validated
+with `PYTHONPATH=src /tmp/pymjolnir-test-venv/bin/python -m pytest tests/test_workflows.py
+tests/test_pymjolnir.py`, Ruff check/format, mypy, pylint, actionlint on the edited workflow, and
+`git diff --check`.
+
+**Outcome:** Malicious but Git-valid tag text such as `v1.2.3$(touch${IFS}/tmp/...)` is now rejected
+as data before checkout and cannot execute in the validation shell; normal tags like `v1.2.3` still
+pass validation.
+
+**Follow-ups:** None.
+
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
 **Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
