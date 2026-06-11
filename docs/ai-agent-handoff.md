@@ -32,10 +32,14 @@ tag, and is verified without raw expression interpolation in shell. Added
 `tests/test_workflows.py` regression coverage for validation ordering, command-substitution
 rejection, and valid tag acceptance.
 
-**Outcome:** Implementation checkpoint committed before validation per cloud-agent workflow; final
-validation results to be recorded after tests run.
+**Outcome:** Malicious tag text such as `v1.2.3$(touch${IFS}/tmp/marker)` is rejected as data before
+checkout and cannot execute in the validation shell; normal tags such as `v1.2.3` still pass.
+Validated with `PYTHONPATH=src /tmp/pymjolnir-test-venv/bin/python -m pytest
+tests/test_workflows.py tests/test_pymjolnir.py`, Ruff check/format, mypy, pylint,
+`go run github.com/rhysd/actionlint/cmd/actionlint@latest -shellcheck= -color
+.github/workflows/publish-pypi.yml`, and `git diff --check`.
 
-**Follow-ups:** Run focused tests and workflow linting, then update this entry with results.
+**Follow-ups:** None.
 
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
