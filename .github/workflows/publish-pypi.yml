@@ -24,25 +24,56 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate release tag input
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag must match the release pattern vX.Y.Z (received: ${RELEASE_TAG})" >&2
+            exit 1
+          fi
       - name: Checkout tag
         uses: actions/checkout@v6
         with:
           ref: refs/tags/${{ inputs.tag }}
           fetch-depth: 0
-      - name: Validate release tag
+      - name: Verify checked-out tag
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
         run: |
-          case "${{ inputs.tag }}" in
-            v[0-9]*.[0-9]*.[0-9]*) ;;
-            *)
-              echo "Tag must match the release pattern vX.Y.Z (received: ${{ inputs.tag }})" >&2
-              exit 1
-              ;;
-          esac
-          git rev-parse --verify "refs/tags/${{ inputs.tag }}"
+          tag_commit="$(git rev-parse --verify "refs/tags/${RELEASE_TAG}^{commit}")"
+          head_commit="$(git rev-parse HEAD)"
+          if [[ "$tag_commit" != "$head_commit" ]]; then
+            echo "Checked-out commit does not match ${RELEASE_TAG}" >&2
+            exit 1
+          fi
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.13'
+      - name: Verify package version matches tag
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+          import tomllib
+
+          release_tag = os.environ["RELEASE_TAG"]
+          expected_version = release_tag.removeprefix("v")
+
+          with open("pyproject.toml", "rb") as pyproject:
+              package_version = tomllib.load(pyproject)["project"]["version"]
+
+          if package_version != expected_version:
+              print(
+                  f"pyproject.toml version {package_version!r} does not match tag "
+                  f"{release_tag!r}",
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+          PY
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.1.0
       - name: Sync dev toolchain (lockfile)

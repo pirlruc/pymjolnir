@@ -21,6 +21,25 @@ ______________________________________________________________________
 
 ## Log entries (newest first)
 
+### 2026-06-19 (UTC) — Harden manual PyPI publish tag handling
+
+**Trigger:** Deep bug-finding automation asked to inspect recent commits for high-severity
+correctness/security bugs and fix only concrete critical issues.
+
+**Actions:** Updated `.github/workflows/publish-pypi.yml` so `workflow_dispatch` tag input is
+validated with a strict `vX.Y.Z` regex before checkout, shell steps consume it only through the
+`RELEASE_TAG` environment variable, the checked-out commit is verified against the tag, and
+`pyproject.toml` package version must match before `uv build` / PyPI publish. Added
+`tests/test_publish_workflow.py` regression tests for validation ordering, shell interpolation, and
+version checking.
+
+**Outcome:** Manual PyPI publishing no longer interpolates raw dispatch input into shell scripts
+before building with OIDC publishing permissions, and tests lock in the release-safety workflow
+contract.
+
+**Follow-ups:** Consider adding a protected GitHub Environment for the PyPI publish job so OIDC
+publishing also requires environment approval in repository settings.
+
 ### 2026-04-26 (local) — Fix recreate-template mismatch in handoff rule
 
 **Trigger:** Copilot review flagged that `.cursor/rules/agent-handoff-log.mdc` recreate guidance
