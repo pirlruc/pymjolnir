@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout tag
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: refs/tags/${{ inputs.tag }}
           fetch-depth: 0
@@ -40,11 +40,11 @@ jobs:
           esac
           git rev-parse --verify "refs/tags/${{ inputs.tag }}"
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'
       - name: Set up uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v8.3.2
       - name: Sync dev toolchain (lockfile)
         run: uv sync --frozen --extra dev
       - name: Build distributions
